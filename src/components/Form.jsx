@@ -9,8 +9,10 @@ function Form(props) {
     
     fetch('https://youtube-downloader-backend-gnsb.vercel.app/api/request', {
       method: 'POST',
+      mode:'cors',
       headers: {
         'Content-Type': 'application/json',
+      
       },
       body: JSON.stringify({
         search,
@@ -28,6 +30,7 @@ function Form(props) {
   const handleDownload = (videoId) => {
     fetch('https://youtube-downloader-backend-gnsb.vercel.app/api/download', {
       method: 'POST',
+      mode:'cors',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -51,6 +54,7 @@ function Form(props) {
   const handleDownloadAudio = (videoId) => {
     fetch('https://youtube-downloader-backend-gnsb.vercel.app/api/download/audio', {
       method: 'POST',
+      mode:'cors',
       headers: {
         'Content-Type': 'application/json',
       },
