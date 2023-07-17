@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 
 function Form(props) {
   const [search, setSearch] = useState('');
   const [videos, setVideos] = useState([]);
-  const [isFetching, setIsFetching] = useState(false); // Add a state to track if a request is in progress
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.unclearItems();
-
-    // Check if a request is already in progress
-    if (isFetching) {
-      return;
-    }
-
-    setIsFetching(true); // Set the flag to indicate a request is in progress
+    props.unclearItems()
 
     fetch('https://encouraging-pink-wig.cyclic.app/api/request', {
       method: 'POST',
@@ -31,20 +22,10 @@ function Form(props) {
       })
       .catch((error) => {
         console.log(error);
-      })
-      .finally(() => {
-        setIsFetching(false); // Reset the flag when the request is completed
       });
   };
 
   const handleDownload = (videoId) => {
-    // Check if a request is already in progress
-    if (isFetching) {
-      return;
-    }
-
-    setIsFetching(true); // Set the flag to indicate a request is in progress
-
     fetch('https://encouraging-pink-wig.cyclic.app/api/download', {
       method: 'POST',
       headers: {
@@ -64,20 +45,11 @@ function Form(props) {
         a.click();
         URL.revokeObjectURL(url);
       })
-      .catch(console.log)
-      .finally(() => {
-        setIsFetching(false); // Reset the flag when the request is completed
-      });
+      .catch(console.log);
   };
-
+  
   const handleDownloadAudio = (videoId) => {
-    // Check if a request is already in progress
-    if (isFetching) {
-      return;
-    }
-
-    setIsFetching(true); // Set the flag to indicate a request is in progress
-
+    props.unclearItems
     fetch('https://encouraging-pink-wig.cyclic.app/api/download/audio', {
       method: 'POST',
       headers: {
@@ -97,53 +69,51 @@ function Form(props) {
         a.click();
         URL.revokeObjectURL(url);
       })
-      .catch(console.log)
-      .finally(() => {
-        setIsFetching(false); // Reset the flag when the request is completed
-      });
+      .catch(console.log);
   };
+  
+
+  
 
   return (
     <>
-      <form method="post" className="inputForm" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          className="inputSearch"
-          required
-        />
-        <button type="submit">Search</button>
-      </form>
-      <div className="videoList" style={{ display: props.clear ? 'none' : 'block' }}>
-        <div className="gallery">
-          {videos.map((video, index) => (
-            <div key={index} className="videoItem">
-              <div className="video-thumbnail">
-                <a href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank">
-                  <img src={video.thumbnail} alt={video.title} />
-                </a>
+    <form method="post" className="inputForm" onSubmit={handleSubmit}>
+      <input
+        type="text"
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className='inputSearch'
+        required
+      />
+      <button type="submit">Search</button>
+    </form>
+    <div className="videoList" style={{display: props.clear? 'none':'block'}}>
+      <div className="gallery">
+        {videos.map((video, index) => (
+          <div key={index} className="videoItem">
+            <div className="video-thumbnail">
+              <a href={`https://www.youtube.com/watch?v=${video.id}`} target="_blank">
+                <img src={video.thumbnail} alt={video.title} />
+              </a>
+            </div>
+            <div className="video-details">
+              <div className="video-title">{video.title}</div>
+              <div className="video-info">
+                <p>{video.author}</p>
+                <p>{video.timestamp}</p>
               </div>
-              <div className="video-details">
-                <div className="video-title">{video.title}</div>
-                <div className="video-info">
-                  <p>{video.author}</p>
-                  <p>{video.timestamp}</p>
-                </div>
-                <div className="video-actions">
-                  <button onClick={() => handleDownload(video.id)}>Video</button>
-                  <button onClick={() => handleDownloadAudio(video.id)}>Audio</button>
-                </div>
+              <div className="video-actions">
+                <button onClick={() => { handleDownload(video.id) }}>Video</button>
+                <button onClick={() => { handleDownloadAudio(video.id) }}>Audio</button>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
+    </div>
 
-      <div className="description">
-        Disclaimer: The app "YouTube Downloader" is provided for educational purposes only and users are responsible
-        for ensuring compliance with copyright laws while using the app to download YouTube videos.
-      </div>
+    <div className="description">Disclaimer: The app "YouTube Downloader" is provided for educational purposes only and users are responsible for ensuring compliance with copyright laws while using the app to download YouTube videos.</div>
+
     </>
   );
 }
