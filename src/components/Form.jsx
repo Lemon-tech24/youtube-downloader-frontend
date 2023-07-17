@@ -6,7 +6,6 @@ function Form(props) {
   const handleSubmit = (e) => {
     e.preventDefault();
     props.unclearItems();
-
     fetch('/api/request', {
       method: 'POST',
       headers: {
@@ -49,7 +48,6 @@ function Form(props) {
   };
 
   const handleDownloadAudio = (videoId) => {
-    props.unclearItems();
     fetch('/api/download/audio', {
       method: 'POST',
       headers: {
