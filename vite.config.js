@@ -8,7 +8,7 @@ export default defineConfig({
   server:{
     proxy: {
       '/api': {
-           target: '',
+           target: 'https://encouraging-pink-wig.cyclic.app',
            changeOrigin: true,
            secure: false,      
            ws: true,
