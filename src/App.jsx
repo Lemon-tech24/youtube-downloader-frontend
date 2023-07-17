@@ -1,26 +1,25 @@
-import { useState } from 'react'
-import Navigation from './components/Navigation'
-import Form from './components/Form'
-
+import { useState } from 'react';
+import Navigation from './components/Navigation';
+import Form from './components/Form';
 
 function App() {
- const [Clear, setClear] = useState(false)
+  const [Clear, setClear] = useState(false);
 
-const clearItems = ()=>{
-  setClear(true)
-}
+  const clearItems = () => {
+    setClear(true);
+  };
 
-const unclearItems = ()=>{
-  setClear(false)
-}
+  const unclearItems = () => {
+    setClear(false);
+  };
   return (
     <>
-      <div className="App">
-        <Navigation clearItems={clearItems}/>
+      <div className='App'>
+        <Navigation clearItems={clearItems} />
         <Form unclearItems={unclearItems} clear={Clear} />
       </div>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
