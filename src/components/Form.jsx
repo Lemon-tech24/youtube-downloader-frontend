@@ -29,7 +29,7 @@ function Form(props) {
     fetch('https://fine-pear-fawn-shoe.cyclic.app/api/download', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/octet-stream',
+        'Content-Type': format.mimeType,
       },
       body: JSON.stringify({ videoId }),
     })
@@ -47,6 +47,7 @@ function Form(props) {
       })
       .catch(console.log);
   };
+  
   
   const handleDownloadAudio = (videoId) => {
     props.unclearItems
