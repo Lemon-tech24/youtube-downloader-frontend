@@ -7,7 +7,7 @@ function Form(props) {
     e.preventDefault();
     props.unclearItems()
 
-    fetch('/api/request', {
+    fetch('https://encouraging-pink-wig.cyclic.app/api/request', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ function Form(props) {
   };
 
   const handleDownload = (videoId) => {
-    fetch('/api/download', {
+    fetch('https://encouraging-pink-wig.cyclic.app/api/download', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -50,7 +50,7 @@ function Form(props) {
   
   const handleDownloadAudio = (videoId) => {
     props.unclearItems
-    fetch('/api/download/audio', {
+    fetch('https://encouraging-pink-wig.cyclic.app/api/download/audio', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
